@@ -1,0 +1,72 @@
+<project name="Test" default="init">
+  
+  <property name="build.dir" value="build"/>
+  <property name="classes.dir" value="${build.dir}/classes"/>
+  <property name="jar.dir" value="${build.dir}/jar"/>
+  <property name="src.dir" value="src/com/test"/>
+  <property name="dist.dir" value="${build.dir}/dist"/>
+  <property name="prop.dir" value="config"/>
+  <property name="lib.dir" value="lib"/>
+  <property name="test.dir" value="test/com/test"/>
+  
+  <path id="incl_lib">
+    <fileset dir="${lib.dir}">
+      <include name="*.jar"/>
+    </fileset>
+    <pathelement location="${build.dir}"/>
+  </path>
+
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+  </target>
+  
+  <target name="init">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${classes.dir}"/>
+    <tstamp>
+      <format property="date" pattern="yyyy-mm-dd" locale="en,US"/>
+      <format property="time" pattern="HH:mm:ss" locale="en,US"/>
+    </tstamp>
+  </target>
+  
+  <target name="compile" depends="init">
+    <javac sourcepath="${lib.dir}" srcdir="${src.dir}" destdir="${classes.dir}">
+      <classpath refid="incl_lib"/>
+    </javac>
+  </target>
+  
+  <target name="test" depends="init">
+     <javac srcdir="${test.dir}" destdir="${build.dir}">
+       <classpath refid="incl_lib"/>
+     </javac>
+     <mkdir dir="report"/>
+     <junit haltonfailure="no">
+       <classpath refid="incl_lib"/>
+       <formatter type="plain"/>
+       <batchtest todir="report">
+         <fileset dir="report">
+           <include name="**/*"/>
+         </fileset>
+       </batchtest>
+     </junit>
+  </target>
+  
+  <target name="jar" depends="compile">
+    <mkdir dir="${jar.dir}"/>
+    <jar destfile="${jar.dir}/Compile.jar" basedir="${classes.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="com.test.Project"/>
+      </manifest>
+    </jar>
+  </target>
+  
+  <target name="dist" depends="jar">
+    <mkdir dir="${dist.dir}"/>
+    <copy file="${jar.dir}/Compile.jar" todir="${dist.dir}"/>
+    <copy file="${prop.dir}/project.properties" todir="${dist.dir}"/>
+    <copy todir="${dist.dir}">
+      <fileset dir="${lib.dir}"/>
+    </copy>
+    <zip destfile="Art-${date}-${time}.zip" basedir="${dist.dir}"/>
+  </target>
+</project>
