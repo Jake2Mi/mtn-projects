@@ -3,9 +3,10 @@
   <property name="build.dir" value="build"/>
   <property name="classes.dir" value="${build.dir}/classes"/>
   <property name="jar.dir" value="${build.dir}/jar"/>
-  <property name="src.dir" value="src"/>
+  <property name="src.dir" value="src/com/test"/>
   <property name="dist.dir" value="${build.dir}/dist"/>
   <property name="prop.dir" value="config"/>
+  <property name="lib.dir" value="lib"/>
   
   <target name="clean">
     <delete dir="${build.dir}"/>
@@ -13,22 +14,23 @@
   
   <target name="init">
     <mkdir dir="${build.dir}"/>
+    <mkdir dir="${classes.dir}"/>
     <tstamp>
       <format property="date" pattern="yyyy-mm-dd" locale="en,US"/>
       <format property="time" pattern="HH:mm:ss" locale="en,US"/>
     </tstamp>
   </target>
   
-  <target name="compile" >
-    <mkdir dir="${classes.dir}"
+  <target name="compile" depends="init">
     <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
   </target>
   
-  <target name="dist">
+  <target name="test" depends="init">
+    <javac srcdir="test/com/test" destdir="${classes.dir}"/>
     
   </target>
   
-  <target name="jar">
+  <target name="jar" depends="compile">
     <mkdir dir="${jar.dir}"/>
     <jar destfile="${jar.dir}/Compile.jar" basedir="${classes.dir}">
       <manifest>
@@ -39,7 +41,11 @@
   
   <target name="dist">
     <mkdir dir="${dist.dir}"/>
-    <copy file="${jar.dir}/Compile.jar" tofile="${dist.dir}/Compile.jar"/>
-    <copy file="${prop.dir}/project.properties" tofile="${dist.dir}/project.properties"/>
+    <copy file="${jar.dir}/Compile.jar" todir="${dist.dir}"/>
+    <copy file="${prop.dir}/project.properties" todir="${dist.dir}"/>
+    <copy todir="${dist.dir}">
+      <fileset dir="${lib.dir}">
+    </copy>
+    <zip destfile="Art-${date}-${time}.zip" basedir="${dist.dir}"/>
   </target>
 </project>
