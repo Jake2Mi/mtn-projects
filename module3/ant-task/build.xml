@@ -22,7 +22,7 @@
   </target>
   
   <target name="compile" depends="init">
-    <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+    <javac sourcepath="${lib.dir}" srcdir="${src.dir}" destdir="${classes.dir}"/>
   </target>
   
   <target name="test" depends="init">
@@ -34,7 +34,7 @@
     <mkdir dir="${jar.dir}"/>
     <jar destfile="${jar.dir}/Compile.jar" basedir="${classes.dir}">
       <manifest>
-        <attribute name="Main-Class" value="Project"/>
+        <attribute name="Main-Class" value="com.test.Project"/>
       </manifest>
     </jar>
   </target>
