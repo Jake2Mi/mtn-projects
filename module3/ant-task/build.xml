@@ -1,0 +1,45 @@
+<project name="Test" default="init">
+  
+  <property name="build.dir" value="build"/>
+  <property name="classes.dir" value="${build.dir}/classes"/>
+  <property name="jar.dir" value="${build.dir}/jar"/>
+  <property name="src.dir" value="src"/>
+  <property name="dist.dir" value="${build.dir}/dist"/>
+  <property name="prop.dir" value="config"/>
+  
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+  </target>
+  
+  <target name="init">
+    <mkdir dir="${build.dir}"/>
+    <tstamp>
+      <format property="date" pattern="yyyy-mm-dd" locale="en,US"/>
+      <format property="time" pattern="HH:mm:ss" locale="en,US"/>
+    </tstamp>
+  </target>
+  
+  <target name="compile" >
+    <mkdir dir="${classes.dir}"
+    <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+  </target>
+  
+  <target name="dist">
+    
+  </target>
+  
+  <target name="jar">
+    <mkdir dir="${jar.dir}"/>
+    <jar destfile="${jar.dir}/Compile.jar" basedir="${classes.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="Project"/>
+      </manifest>
+    </jar>
+  </target>
+  
+  <target name="dist">
+    <mkdir dir="${dist.dir}"/>
+    <copy file="${jar.dir}/Compile.jar" tofile="${dist.dir}/Compile.jar"/>
+    <copy file="${prop.dir}/project.properties" tofile="${dist.dir}/project.properties"/>
+  </target>
+</project>
