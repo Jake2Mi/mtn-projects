@@ -59,14 +59,4 @@
       </manifest>
     </jar>
   </target>
-  
-  <target name="dist" depends="jar">
-    <mkdir dir="${dist.dir}"/>
-    <copy file="${jar.dir}/Compile.jar" todir="${dist.dir}"/>
-    <copy file="${prop.dir}/project.properties" todir="${dist.dir}"/>
-    <copy todir="${dist.dir}">
-      <fileset dir="${lib.dir}"/>
-    </copy>
-    <zip destfile="Art-${date}-${time}.zip" basedir="${dist.dir}"/>
-  </target>
 </project>
