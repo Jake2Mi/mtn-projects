@@ -27,7 +27,7 @@
   </dependencies>
 
   <build>
-    <finalName>${maven.build.timestamp}</finalName>
+    <finalName>buildFile</finalName>
     <plugins>
       <plugin>
 	      <inherited>true</inherited>
