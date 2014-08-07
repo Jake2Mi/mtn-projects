@@ -51,6 +51,16 @@
      </junit>
   </target>
   
+  <target name="report" depends="test">
+    <mkdir dir="${target.report.dir}/html" />
+    <junitreport todir="${target.report.dir}">
+      <fileset dir="${target.report.dir}">
+        <include name="TEST-*.xml" />
+      </fileset>
+      <report todir="${target.report.dir}/html" />
+    </junitreport>
+  </target>
+  
   <target name="jar" depends="compile">
     <mkdir dir="${jar.dir}"/>
     <jar destfile="${jar.dir}/Compile.jar" basedir="${classes.dir}">
