@@ -52,12 +52,12 @@
   </target>
   
   <target name="report" depends="test">
-    <mkdir dir="${target.report.dir}/html" />
-    <junitreport todir="${target.report.dir}">
-      <fileset dir="${target.report.dir}">
-        <include name="TEST-*.xml" />
+    <mkdir dir="report/html" />
+    <junitreport todir="report">
+      <fileset dir="report">
+        <include name="*.xml" />
       </fileset>
-      <report todir="${target.report.dir}/html" />
+      <report todir="report/html" />
     </junitreport>
   </target>
   
