@@ -51,7 +51,7 @@
           </batchtest>
           <classpath>
             <pathelement location="${classes.dir}" />
-            <pathelement path="lib/junit-4.10.jar" />
+            <pathelement location="lib" />
           </classpath>
       </junit>
   </target>
