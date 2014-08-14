@@ -1,0 +1,9 @@
+<settings>
+  <mirrors>
+    <mirror>
+      <id>central</id>
+      <mirrorOf>*</mirrorOf>
+      <url>http://localhost:8081/nexus/content/repositories/central/</url>
+    </mirror>
+  </mirrors>
+</settings>
